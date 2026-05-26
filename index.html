@@ -30,7 +30,7 @@ body{
   background:#0f172a;
   padding:18px;
   text-align:center;
-  font-size:26px;
+  font-size:28px;
   font-weight:bold;
 }
 
@@ -40,11 +40,11 @@ body{
 
 .nav button{
   flex:1;
-  padding:14px;
+  padding:16px;
   border:none;
   background:#1e293b;
   color:white;
-  font-size:15px;
+  font-size:16px;
   font-weight:bold;
 }
 
@@ -54,16 +54,27 @@ body{
 
 .page{
   display:none;
-  padding:14px;
+  padding:16px;
 }
 
 .page.active{
   display:block;
 }
 
+.scan-input{
+  width:100%;
+  padding:24px;
+  border:none;
+  border-radius:18px;
+  background:#1e293b;
+  color:white;
+  font-size:28px;
+  outline:none;
+}
+
 #reader{
   width:100%;
-  border-radius:18px;
+  border-radius:20px;
   overflow:hidden;
   border:4px solid #22c55e;
   background:black;
@@ -71,108 +82,23 @@ body{
 
 #result,
 #resultEstafet{
-  margin-top:12px;
-  padding:16px;
-  border-radius:14px;
-  background:#1e293b;
-  text-align:center;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.scan-input{
-  width:100%;
-  margin-top:12px;
-  padding:18px;
-  border:none;
-  border-radius:14px;
-  background:#1e293b;
-  color:white;
-  font-size:22px;
-}
-
-.filter-wrap{
-  display:flex;
-  gap:10px;
-  margin-bottom:14px;
-}
-
-.filter-wrap select{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  background:#1e293b;
-  color:white;
-  font-size:15px;
-}
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(3,1fr);
-  gap:12px;
-}
-
-.card{
-  background:#1e293b;
-  padding:16px;
-  border-radius:18px;
-}
-
-.card-title{
-  color:#94a3b8;
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-.card-value{
-  font-size:34px;
-  font-weight:bold;
-}
-
-.blue{
-  color:#60a5fa;
-}
-
-.green{
-  color:#4ade80;
-}
-
-.red{
-  color:#f87171;
-}
-
-.table-card{
   margin-top:16px;
-  background:#1e293b;
-  padding:16px;
+  padding:20px;
   border-radius:18px;
-  overflow:auto;
-}
-
-.area-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-.area-table th{
-  background:#2563eb;
-  padding:10px;
-  font-size:13px;
-}
-
-.area-table td{
-  background:#0f172a;
-  padding:10px;
   text-align:center;
-  border-bottom:1px solid #334155;
-  font-size:13px;
+  font-size:26px;
+  font-weight:bold;
+  background:#1e293b;
 }
 
-.pending{
-  color:#f87171;
-  font-weight:bold;
+.success{
+  background:#052e16 !important;
+  color:#4ade80 !important;
+}
+
+.error{
+  background:#450a0a !important;
+  color:#f87171 !important;
 }
 
 </style>
@@ -194,10 +120,6 @@ SCAN
 
 <button onclick="showPage('estafet',this)">
 ESTAFET
-</button>
-
-<button onclick="showPage('dashboard',this)">
-DASHBOARD
 </button>
 
 </div>
@@ -236,129 +158,10 @@ LOADING CAMERA...
 
 </div>
 
-<!-- =========================
-DASHBOARD
-========================= -->
-
-<div id="dashboard"
-     class="page">
-
-<div class="filter-wrap">
-
-<select id="filterBranch"
-        onchange="renderDashboard()">
-
-<option value="ALL">
-ALL BRANCH
-</option>
-
-<option value="HG">
-HG
-</option>
-
-<option value="BK">
-BK
-</option>
-
-</select>
-
-<select id="filterArea"
-        onchange="renderDashboard()">
-
-<option value="ALL">
-ALL AREA
-</option>
-
-</select>
-
-<select id="filterMenu"
-        onchange="renderDashboard()">
-
-<option value="ALL">
-ALL MENU
-</option>
-
-<option value="Lunch">
-Lunch
-</option>
-
-<option value="Dinner">
-Dinner
-</option>
-
-</select>
-
-</div>
-
-<div class="dashboard-grid">
-
-<div class="card">
-<div class="card-title">
-QTY BOX
-</div>
-<div class="card-value blue"
-     id="totalQty">
-0
-</div>
-</div>
-
-<div class="card">
-<div class="card-title">
-QTY SCANNED
-</div>
-<div class="card-value green"
-     id="scannedQty">
-0
-</div>
-</div>
-
-<div class="card">
-<div class="card-title">
-QTY PENDING
-</div>
-<div class="card-value red"
-     id="pendingQty">
-0
-</div>
-</div>
-
-</div>
-
-<div class="table-card">
-
-<table class="area-table">
-
-<thead>
-
-<tr>
-
-<th>AREA</th>
-<th>BRANCH</th>
-<th>KODE WARNA</th>
-<th>QTY</th>
-<th>SCANNED</th>
-<th>PENDING</th>
-
-</tr>
-
-</thead>
-
-<tbody id="areaTable">
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
 <script>
 
 const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbwSD3xJ295OWhgS18__nAjQIwoLjx8ZtPtDGUeAY5FPCOZvj7_q6qL1n_s9iPs2a9ny/exec";
-
-let dashboardData =
-  null;
+"PASTE_WEB_APP_URL";
 
 let scanner;
 
@@ -388,14 +191,13 @@ function showPage(page,btn){
 
   btn.classList.add("active");
 
-  if(page == "dashboard"){
-    loadDashboard();
-  }
-
+  // START CAMERA
   if(page == "estafet"){
 
     if(!scanner){
+
       startScanner();
+
     }
 
   }
@@ -419,11 +221,13 @@ function updateStatus(
 
   el.innerHTML = text;
 
-  el.style.color =
-    "white";
+  el.classList.remove(
+    "success"
+  );
 
-  el.style.background =
-    "#1e293b";
+  el.classList.remove(
+    "error"
+  );
 
   if(
     text.includes(
@@ -431,35 +235,17 @@ function updateStatus(
     )
   ){
 
-    el.style.color =
-      "#4ade80";
-
-    el.style.background =
-      "#052e16";
+    el.classList.add(
+      "success"
+    );
 
   }
 
-  else if(
+  else{
 
-    text.includes(
-      "TIDAK"
-    ) ||
-
-    text.includes(
-      "SUDAH"
-    ) ||
-
-    text.includes(
-      "ERROR"
-    )
-
-  ){
-
-    el.style.color =
-      "#f87171";
-
-    el.style.background =
-      "#450a0a";
+    el.classList.add(
+      "error"
+    );
 
   }
 
@@ -513,25 +299,27 @@ function processScan(
       data
     );
 
+    // RESET INPUT
     if(inputId){
 
-      document
-        .getElementById(
-          inputId
-        ).value = "";
+      const input =
+        document
+          .getElementById(
+            inputId
+          );
 
-      document
-        .getElementById(
-          inputId
-        ).focus();
+      input.value = "";
+
+      input.focus();
 
     }
 
+    // SUPER FAST RESET
     setTimeout(()=>{
 
       lastScan = "";
 
-    },1000);
+    },300);
 
   })
 
@@ -539,7 +327,7 @@ function processScan(
 
     updateStatus(
       resultId,
-      err
+      "ERROR"
     );
 
   });
@@ -591,7 +379,7 @@ function startScanner(){
     },
 
     {
-      fps:10,
+      fps:20,
       qrbox:250
     },
 
@@ -614,7 +402,7 @@ function startScanner(){
     );
 
   })
-  .catch(err=>{
+  .catch(()=>{
 
     updateStatus(
       "resultEstafet",
@@ -624,240 +412,6 @@ function startScanner(){
   });
 
 }
-
-// =====================================
-// LOAD DASHBOARD
-// =====================================
-
-async function loadDashboard(){
-
-  try{
-
-    const res =
-      await fetch(
-        WEB_APP_URL +
-        "?dashboard=1"
-      );
-
-    dashboardData =
-      await res.json();
-
-    populateAreaFilter();
-
-    renderDashboard();
-
-  }
-
-  catch(err){
-
-    console.log(err);
-
-  }
-
-}
-
-// =====================================
-// POPULATE AREA
-// =====================================
-
-function populateAreaFilter(){
-
-  const areaSelect =
-    document
-      .getElementById(
-        "filterArea"
-      );
-
-  const current =
-    areaSelect.value;
-
-  const areas =
-    [...new Set(
-
-      dashboardData
-      .areas
-      .map(a=>a.area)
-
-    )].sort();
-
-  areaSelect.innerHTML =
-    `<option value="ALL">
-      ALL AREA
-    </option>`;
-
-  areas.forEach(a=>{
-
-    areaSelect.innerHTML += `
-
-      <option value="${a}">
-        ${a}
-      </option>
-
-    `;
-
-  });
-
-  areaSelect.value =
-    current || "ALL";
-
-}
-
-// =====================================
-// RENDER DASHBOARD
-// =====================================
-
-function renderDashboard(){
-
-  if(!dashboardData){
-    return;
-  }
-
-  const branch =
-    document
-      .getElementById(
-        "filterBranch"
-      ).value;
-
-  const area =
-    document
-      .getElementById(
-        "filterArea"
-      ).value;
-
-  const menu =
-    document
-      .getElementById(
-        "filterMenu"
-      ).value;
-
-  let filtered =
-    dashboardData.areas;
-
-  if(branch != "ALL"){
-
-    filtered =
-      filtered.filter(
-        a =>
-        a.branch ==
-        branch
-      );
-
-  }
-
-  if(area != "ALL"){
-
-    filtered =
-      filtered.filter(
-        a =>
-        a.area ==
-        area
-      );
-
-  }
-
-  if(menu != "ALL"){
-
-    filtered =
-      filtered.filter(
-        a =>
-        a.menu ==
-        menu
-      );
-
-  }
-
-  let qty = 0;
-  let scanned = 0;
-  let pending = 0;
-
-  filtered.forEach(a=>{
-
-    qty += a.qty;
-    scanned += a.scanned;
-    pending += a.pending;
-
-  });
-
-  document
-    .getElementById(
-      "totalQty"
-    ).innerHTML = qty;
-
-  document
-    .getElementById(
-      "scannedQty"
-    ).innerHTML = scanned;
-
-  document
-    .getElementById(
-      "pendingQty"
-    ).innerHTML = pending;
-
-  filtered.sort((a,b)=>{
-
-    if(a.area < b.area)
-      return -1;
-
-    if(a.area > b.area)
-      return 1;
-
-    if(
-      a.kodeWarna <
-      b.kodeWarna
-    )
-      return -1;
-
-    if(
-      a.kodeWarna >
-      b.kodeWarna
-    )
-      return 1;
-
-    return 0;
-
-  });
-
-  let html = "";
-
-  filtered.forEach(a=>{
-
-    html += `
-
-    <tr>
-
-      <td>${a.area}</td>
-
-      <td>${a.branch}</td>
-
-      <td>${a.kodeWarna}</td>
-
-      <td>${a.qty}</td>
-
-      <td>${a.scanned}</td>
-
-      <td class="pending">
-        ${a.pending}
-      </td>
-
-    </tr>
-
-    `;
-
-  });
-
-  document
-    .getElementById(
-      "areaTable"
-    ).innerHTML = html;
-
-}
-
-loadDashboard();
-
-setInterval(
-  loadDashboard,
-  5000
-);
 
 </script>
 
