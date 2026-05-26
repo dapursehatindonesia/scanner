@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>DSI Scanner</title>
 
@@ -15,251 +15,164 @@ content="width=device-width, initial-scale=1.0">
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-font-family:Arial;
-background:#020617;
-color:white;
-min-height:100vh;
-overflow:auto;
+  font-family:Arial;
+  background:#020617;
+  color:white;
 }
 
 .header{
-background:#0f172a;
-padding:18px;
-text-align:center;
-font-size:26px;
-font-weight:bold;
+  background:#0f172a;
+  padding:18px;
+  text-align:center;
+  font-size:26px;
+  font-weight:bold;
 }
 
 .nav{
-display:flex;
+  display:flex;
 }
 
 .nav button{
-flex:1;
-padding:14px;
-border:none;
-background:#1e293b;
-color:white;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
+  flex:1;
+  padding:14px;
+  border:none;
+  background:#1e293b;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
 }
 
 .nav button.active{
-background:#2563eb;
+  background:#2563eb;
 }
 
 .page{
-display:none;
-padding:14px;
+  display:none;
+  padding:14px;
 }
 
 .page.active{
-display:block;
+  display:block;
 }
 
-/* =========================
-SCAN INPUT
-========================= */
-
-.scan-box{
-max-width:700px;
-margin:auto;
+#reader{
+  width:100%;
+  border-radius:18px;
+  overflow:hidden;
+  border:4px solid #22c55e;
+  background:black;
 }
-
-.scan-input{
-width:100%;
-padding:22px;
-font-size:28px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:white;
-outline:none;
-text-align:center;
-font-weight:bold;
-}
-
-.scan-input:focus{
-border:3px solid #2563eb;
-}
-
-/* =========================
-ESTAFET CAMERA
-========================= */
-
-#readerEstafet{
-width:100%;
-max-width:500px;
-margin:auto;
-border-radius:20px;
-overflow:hidden;
-border:4px solid #22c55e;
-background:black;
-}
-
-/* =========================
-RESULT
-========================= */
 
 #result,
 #resultEstafet{
-margin-top:15px;
-padding:18px;
-border-radius:15px;
-background:#1e293b;
-text-align:center;
-font-size:22px;
-font-weight:bold;
+  margin-top:12px;
+  padding:16px;
+  border-radius:14px;
+  background:#1e293b;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
 }
 
-/* =========================
-BUTTON
-========================= */
-
-.controls{
-display:flex;
-gap:10px;
-margin-top:15px;
-max-width:500px;
-margin-left:auto;
-margin-right:auto;
+.scan-input{
+  width:100%;
+  margin-top:12px;
+  padding:18px;
+  border:none;
+  border-radius:14px;
+  background:#1e293b;
+  color:white;
+  font-size:22px;
 }
 
-.controls button{
-flex:1;
-padding:14px;
-border:none;
-border-radius:15px;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
+.filter-wrap{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
 }
 
-.btn-camera{
-background:#2563eb;
-color:white;
-}
-
-.btn-reset{
-background:#374151;
-color:white;
-}
-
-/* =========================
-DASHBOARD
-========================= */
-
-.filter-container{
-margin-bottom:12px;
-}
-
-.filter-container select{
-padding:12px;
-border:none;
-border-radius:12px;
-background:#1e293b;
-color:white;
-font-weight:bold;
+.filter-wrap select{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#1e293b;
+  color:white;
+  font-size:15px;
 }
 
 .dashboard-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:10px;
-
+  display:grid;
+  grid-template-columns:
+    repeat(3,1fr);
+  gap:12px;
 }
 
 .card{
-
-background:#1e293b;
-
-padding:14px;
-
-border-radius:18px;
-
-min-height:85px;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
+  background:#1e293b;
+  padding:16px;
+  border-radius:18px;
 }
 
 .card-title{
-font-size:12px;
-color:#94a3b8;
-margin-bottom:8px;
+  color:#94a3b8;
+  font-size:13px;
+  margin-bottom:8px;
 }
 
 .card-value{
-font-size:34px;
-font-weight:bold;
+  font-size:34px;
+  font-weight:bold;
 }
 
 .blue{
-color:#60a5fa;
+  color:#60a5fa;
 }
 
 .green{
-color:#4ade80;
-}
-
-.yellow{
-color:#facc15;
+  color:#4ade80;
 }
 
 .red{
-color:#f87171;
+  color:#f87171;
 }
-
-/* =========================
-TABLE
-========================= */
 
 .table-card{
-margin-top:12px;
-background:#1e293b;
-padding:16px;
-border-radius:18px;
-overflow:auto;
-}
-
-.table-title{
-font-size:20px;
-font-weight:bold;
-margin-bottom:10px;
+  margin-top:16px;
+  background:#1e293b;
+  padding:16px;
+  border-radius:18px;
+  overflow:auto;
 }
 
 .area-table{
-width:100%;
-border-collapse:collapse;
+  width:100%;
+  border-collapse:collapse;
 }
 
 .area-table th{
-background:#2563eb;
-padding:10px;
-font-size:13px;
+  background:#2563eb;
+  padding:10px;
+  font-size:13px;
 }
 
 .area-table td{
-background:#0f172a;
-padding:10px;
-text-align:center;
-border-bottom:1px solid #334155;
-font-size:13px;
+  background:#0f172a;
+  padding:10px;
+  text-align:center;
+  border-bottom:1px solid #334155;
+  font-size:13px;
+}
+
+.pending{
+  color:#f87171;
+  font-weight:bold;
 }
 
 </style>
@@ -275,7 +188,7 @@ DSI SCANNER
 <div class="nav">
 
 <button class="active"
-onclick="showPage('scan',this)">
+        onclick="showPage('scan',this)">
 SCAN
 </button>
 
@@ -294,21 +207,16 @@ SCAN
 ========================= -->
 
 <div id="scan"
-class="page active">
+     class="page active">
 
-<div class="scan-box">
-
-<input
-type="text"
-id="scanInput"
-class="scan-input"
-placeholder="SCAN BOX..."
-autocomplete="off">
+<input type="text"
+       id="scanInput"
+       class="scan-input"
+       placeholder="SCAN BARCODE"
+       autofocus>
 
 <div id="result">
 READY SCAN
-</div>
-
 </div>
 
 </div>
@@ -318,26 +226,12 @@ ESTAFET
 ========================= -->
 
 <div id="estafet"
-class="page">
+     class="page">
 
-<div id="readerEstafet"></div>
+<div id="reader"></div>
 
 <div id="resultEstafet">
-Loading Camera...
-</div>
-
-<div class="controls">
-
-<button class="btn-camera"
-onclick="switchCameraEstafet()">
-Switch Camera
-</button>
-
-<button class="btn-reset"
-onclick="resetScannerEstafet()">
-Reset
-</button>
-
+LOADING CAMERA...
 </div>
 
 </div>
@@ -347,15 +241,41 @@ DASHBOARD
 ========================= -->
 
 <div id="dashboard"
-class="page">
+     class="page">
 
-<div class="filter-container">
+<div class="filter-wrap">
 
-<select id="menuFilter"
-onchange="loadDashboard()">
+<select id="filterBranch"
+        onchange="renderDashboard()">
 
 <option value="ALL">
-ALL
+ALL BRANCH
+</option>
+
+<option value="HG">
+HG
+</option>
+
+<option value="BK">
+BK
+</option>
+
+</select>
+
+<select id="filterArea"
+        onchange="renderDashboard()">
+
+<option value="ALL">
+ALL AREA
+</option>
+
+</select>
+
+<select id="filterMenu"
+        onchange="renderDashboard()">
+
+<option value="ALL">
+ALL MENU
 </option>
 
 <option value="Lunch">
@@ -373,68 +293,38 @@ Dinner
 <div class="dashboard-grid">
 
 <div class="card">
-<div class="card-title">QTY BOX</div>
+<div class="card-title">
+QTY BOX
+</div>
 <div class="card-value blue"
-id="totalQty">0</div>
+     id="totalQty">
+0
+</div>
 </div>
 
 <div class="card">
-<div class="card-title">BOX HG</div>
+<div class="card-title">
+QTY SCANNED
+</div>
 <div class="card-value green"
-id="hgQty">0</div>
+     id="scannedQty">
+0
+</div>
 </div>
 
 <div class="card">
-<div class="card-title">BOX BK</div>
-<div class="card-value yellow"
-id="bkQty">0</div>
+<div class="card-title">
+QTY PENDING
 </div>
-
-<div class="card">
-<div class="card-title">QTY SCANNED</div>
-<div class="card-value green"
-id="scannedQty">0</div>
-</div>
-
-<div class="card">
-<div class="card-title">HG SCANNED</div>
-<div class="card-value green"
-id="hgScanned">0</div>
-</div>
-
-<div class="card">
-<div class="card-title">BK SCANNED</div>
-<div class="card-value yellow"
-id="bkScanned">0</div>
-</div>
-
-<div class="card">
-<div class="card-title">QTY PENDING</div>
 <div class="card-value red"
-id="pendingQty">0</div>
+     id="pendingQty">
+0
 </div>
-
-<div class="card">
-<div class="card-title">HG PENDING</div>
-<div class="card-value red"
-id="hgPending">0</div>
-</div>
-
-<div class="card">
-<div class="card-title">BK PENDING</div>
-<div class="card-value red"
-id="bkPending">0</div>
 </div>
 
 </div>
-
-<!-- AREA -->
 
 <div class="table-card">
-
-<div class="table-title">
-SUMMARY AREA
-</div>
 
 <table class="area-table">
 
@@ -444,10 +334,10 @@ SUMMARY AREA
 
 <th>AREA</th>
 <th>BRANCH</th>
+<th>KODE WARNA</th>
 <th>QTY</th>
 <th>SCANNED</th>
 <th>PENDING</th>
-<th>%</th>
 
 </tr>
 
@@ -460,49 +350,19 @@ SUMMARY AREA
 
 </div>
 
-<!-- WARNA -->
-
-<div class="table-card">
-
-<div class="table-title">
-SUMMARY KODE WARNA
-</div>
-
-<table class="area-table">
-
-<thead>
-
-<tr>
-
-<th>AREA</th>
-<th>KODE WARNA</th>
-<th>QTY</th>
-<th>SCANNED</th>
-<th>PENDING</th>
-<th>%</th>
-
-</tr>
-
-</thead>
-
-<tbody id="warnaTable">
-</tbody>
-
-</table>
-
-</div>
-
 </div>
 
 <script>
 
 const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbxWm7JbY1zbYn8bivNn-nsVx6pvwv5q998qM4ACpmVylAi9ZbldPT_AwI72Sus3rozD/exec";
+"https://script.google.com/macros/s/AKfycbwSD3xJ295OWhgS18__nAjQIwoLjx8ZtPtDGUeAY5FPCOZvj7_q6qL1n_s9iPs2a9ny/exec";
 
-let scannerEstafet = null;
+let dashboardData =
+  null;
 
-let currentCameraEstafet =
-"environment";
+let scanner;
+
+let lastScan = "";
 
 // =====================================
 // NAVIGATION
@@ -510,47 +370,35 @@ let currentCameraEstafet =
 
 function showPage(page,btn){
 
-document
-.querySelectorAll(".page")
-.forEach(p => {
-p.classList.remove("active");
-});
+  document
+    .querySelectorAll(".page")
+    .forEach(p => {
+      p.classList.remove("active");
+    });
 
-document
-.getElementById(page)
-.classList.add("active");
+  document
+    .getElementById(page)
+    .classList.add("active");
 
-document
-.querySelectorAll(".nav button")
-.forEach(b => {
-b.classList.remove("active");
-});
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b => {
+      b.classList.remove("active");
+    });
 
-btn.classList.add("active");
+  btn.classList.add("active");
 
-if(page == "dashboard"){
+  if(page == "dashboard"){
+    loadDashboard();
+  }
 
-loadDashboard();
+  if(page == "estafet"){
 
-}
+    if(!scanner){
+      startScanner();
+    }
 
-if(page == "scan"){
-
-setTimeout(() => {
-
-document
-.getElementById("scanInput")
-.focus();
-
-},100);
-
-}
-
-if(page == "estafet"){
-
-startScannerEstafet();
-
-}
+  }
 
 }
 
@@ -558,29 +406,62 @@ startScannerEstafet();
 // STATUS
 // =====================================
 
-function updateStatus(id,text,type){
+function updateStatus(
+  elementId,
+  text
+){
 
-const result =
-document.getElementById(id);
+  const el =
+    document
+      .getElementById(
+        elementId
+      );
 
-result.innerHTML = text;
+  el.innerHTML = text;
 
-result.style.color = "white";
-result.style.background = "#1e293b";
+  el.style.color =
+    "white";
 
-if(type == "success"){
+  el.style.background =
+    "#1e293b";
 
-result.style.color = "#4ade80";
-result.style.background = "#052e16";
+  if(
+    text.includes(
+      "BERHASIL"
+    )
+  ){
 
-}
+    el.style.color =
+      "#4ade80";
 
-if(type == "error"){
+    el.style.background =
+      "#052e16";
 
-result.style.color = "#f87171";
-result.style.background = "#450a0a";
+  }
 
-}
+  else if(
+
+    text.includes(
+      "TIDAK"
+    ) ||
+
+    text.includes(
+      "SUDAH"
+    ) ||
+
+    text.includes(
+      "ERROR"
+    )
+
+  ){
+
+    el.style.color =
+      "#f87171";
+
+    el.style.background =
+      "#450a0a";
+
+  }
 
 }
 
@@ -588,76 +469,80 @@ result.style.background = "#450a0a";
 // PROCESS SCAN
 // =====================================
 
-async function processScan(
-barcode,
-type,
-resultId,
-inputId = null
+function processScan(
+  barcode,
+  type,
+  resultId,
+  inputId
 ){
 
-if(!barcode){
-return;
-}
+  if(
+    !barcode ||
+    barcode == lastScan
+  ){
+    return;
+  }
 
-updateStatus(
-resultId,
-"PROCESSING...",
-""
-);
+  lastScan = barcode;
 
-try{
+  fetch(WEB_APP_URL,{
 
-const res =
-await fetch(WEB_APP_URL,{
+    method:"POST",
 
-method:"POST",
+    headers:{
+      "Content-Type":
+      "text/plain"
+    },
 
-headers:{
-"Content-Type":"text/plain"
-},
+    body:JSON.stringify({
 
-body:JSON.stringify({
+      boxId:barcode,
 
-boxId:barcode,
+      type:type
 
-type:type
+    })
 
-})
+  })
 
-});
+  .then(res => res.text())
 
-const data =
-await res.text();
+  .then(data => {
 
-updateStatus(
-resultId,
-data,
-"success"
-);
+    updateStatus(
+      resultId,
+      data
+    );
 
-}
-catch(err){
+    if(inputId){
 
-updateStatus(
-resultId,
-"ERROR",
-"error"
-);
+      document
+        .getElementById(
+          inputId
+        ).value = "";
 
-}
+      document
+        .getElementById(
+          inputId
+        ).focus();
 
-// CLEAR INPUT
+    }
 
-if(inputId){
+    setTimeout(()=>{
 
-const input =
-document.getElementById(inputId);
+      lastScan = "";
 
-input.value = "";
+    },1000);
 
-input.focus();
+  })
 
-}
+  .catch(err => {
+
+    updateStatus(
+      resultId,
+      err
+    );
+
+  });
 
 }
 
@@ -666,7 +551,9 @@ input.focus();
 // =====================================
 
 document
-.getElementById("scanInput")
+.getElementById(
+  "scanInput"
+)
 .addEventListener(
 "keydown",
 function(e){
@@ -674,15 +561,10 @@ function(e){
 if(e.key === "Enter"){
 
 processScan(
-
 this.value.trim(),
-
 "scan",
-
 "result",
-
 "scanInput"
-
 );
 
 }
@@ -691,136 +573,55 @@ this.value.trim(),
 );
 
 // =====================================
-// ESTAFET CAMERA
+// CAMERA ESTAFET
 // =====================================
 
-async function startScannerEstafet(){
+function startScanner(){
 
-try{
+  scanner =
+    new Html5Qrcode(
+      "reader"
+    );
 
-if(scannerEstafet){
+  scanner.start(
 
-await scannerEstafet.stop();
-await scannerEstafet.clear();
+    {
+      facingMode:
+      "environment"
+    },
 
-}
+    {
+      fps:10,
+      qrbox:250
+    },
 
-scannerEstafet =
-new Html5Qrcode(
-"readerEstafet"
-);
+    (decodedText)=>{
 
-await scannerEstafet.start(
+      processScan(
+        decodedText,
+        "estafet",
+        "resultEstafet"
+      );
 
-{
-facingMode:
-currentCameraEstafet
-},
+    }
 
-{
-fps:10,
+  )
+  .then(()=>{
 
-qrbox:{
-width:250,
-height:250
-}
+    updateStatus(
+      "resultEstafet",
+      "CAMERA READY"
+    );
 
-},
+  })
+  .catch(err=>{
 
-decodedText => {
+    updateStatus(
+      "resultEstafet",
+      "ERROR CAMERA"
+    );
 
-processScan(
-
-decodedText,
-
-"estafet",
-
-"resultEstafet"
-
-);
-
-}
-
-);
-
-updateStatus(
-"resultEstafet",
-"📷 Camera Ready",
-""
-);
-
-}
-
-catch(err){
-
-updateStatus(
-"resultEstafet",
-"ERROR CAMERA",
-"error"
-);
-
-}
-
-}
-
-// =====================================
-// SWITCH CAMERA
-// =====================================
-
-async function switchCameraEstafet(){
-
-try{
-
-if(scannerEstafet){
-
-await scannerEstafet.stop();
-await scannerEstafet.clear();
-
-}
-
-currentCameraEstafet =
-
-currentCameraEstafet
-== "environment"
-
-? "user"
-
-: "environment";
-
-startScannerEstafet();
-
-}
-catch(err){
-
-console.log(err);
-
-}
-
-}
-
-// =====================================
-// RESET CAMERA
-// =====================================
-
-async function resetScannerEstafet(){
-
-try{
-
-if(scannerEstafet){
-
-await scannerEstafet.stop();
-await scannerEstafet.clear();
-
-}
-
-startScannerEstafet();
-
-}
-catch(err){
-
-console.log(err);
-
-}
+  });
 
 }
 
@@ -830,136 +631,233 @@ console.log(err);
 
 async function loadDashboard(){
 
-try{
+  try{
 
-const menu =
-document.getElementById(
-"menuFilter"
-).value;
+    const res =
+      await fetch(
+        WEB_APP_URL +
+        "?dashboard=1"
+      );
 
-const res =
-await fetch(
+    dashboardData =
+      await res.json();
 
-WEB_APP_URL +
+    populateAreaFilter();
 
-"?dashboard=1&menu=" +
+    renderDashboard();
 
-menu
+  }
 
-);
+  catch(err){
 
-const data =
-await res.json();
+    console.log(err);
 
-document.getElementById("totalQty")
-.innerHTML = data.totalQty;
-
-document.getElementById("hgQty")
-.innerHTML = data.hgQty;
-
-document.getElementById("bkQty")
-.innerHTML = data.bkQty;
-
-document.getElementById("scannedQty")
-.innerHTML = data.scannedQty;
-
-document.getElementById("hgScanned")
-.innerHTML = data.hgScanned;
-
-document.getElementById("bkScanned")
-.innerHTML = data.bkScanned;
-
-document.getElementById("pendingQty")
-.innerHTML = data.pendingQty;
-
-document.getElementById("hgPending")
-.innerHTML = data.hgPending;
-
-document.getElementById("bkPending")
-.innerHTML = data.bkPending;
-
-// AREA
-
-let html = "";
-
-data.areas.forEach(a => {
-
-html += `
-
-<tr>
-
-<td>${a.area}</td>
-<td>${a.branch}</td>
-<td>${a.qty}</td>
-<td>${a.scanned}</td>
-<td>${a.pending}</td>
-<td>${a.percent}%</td>
-
-</tr>
-
-`;
-
-});
-
-document
-.getElementById("areaTable")
-.innerHTML = html;
-
-// WARNA
-
-let warnaHtml = "";
-
-data.warnaSummary.forEach(w => {
-
-warnaHtml += `
-
-<tr>
-
-<td>${w.area}</td>
-<td>${w.kodeWarna}</td>
-<td>${w.qty}</td>
-<td>${w.scanned}</td>
-<td>${w.pending}</td>
-<td>${w.percent}%</td>
-
-</tr>
-
-`;
-
-});
-
-document
-.getElementById("warnaTable")
-.innerHTML =
-warnaHtml;
-
-}
-catch(err){
-
-console.log(err);
-
-}
+  }
 
 }
 
 // =====================================
-// INIT
+// POPULATE AREA
 // =====================================
 
-window.onload = function(){
+function populateAreaFilter(){
 
-document
-.getElementById("scanInput")
-.focus();
+  const areaSelect =
+    document
+      .getElementById(
+        "filterArea"
+      );
+
+  const current =
+    areaSelect.value;
+
+  const areas =
+    [...new Set(
+
+      dashboardData
+      .areas
+      .map(a=>a.area)
+
+    )].sort();
+
+  areaSelect.innerHTML =
+    `<option value="ALL">
+      ALL AREA
+    </option>`;
+
+  areas.forEach(a=>{
+
+    areaSelect.innerHTML += `
+
+      <option value="${a}">
+        ${a}
+      </option>
+
+    `;
+
+  });
+
+  areaSelect.value =
+    current || "ALL";
+
+}
+
+// =====================================
+// RENDER DASHBOARD
+// =====================================
+
+function renderDashboard(){
+
+  if(!dashboardData){
+    return;
+  }
+
+  const branch =
+    document
+      .getElementById(
+        "filterBranch"
+      ).value;
+
+  const area =
+    document
+      .getElementById(
+        "filterArea"
+      ).value;
+
+  const menu =
+    document
+      .getElementById(
+        "filterMenu"
+      ).value;
+
+  let filtered =
+    dashboardData.areas;
+
+  if(branch != "ALL"){
+
+    filtered =
+      filtered.filter(
+        a =>
+        a.branch ==
+        branch
+      );
+
+  }
+
+  if(area != "ALL"){
+
+    filtered =
+      filtered.filter(
+        a =>
+        a.area ==
+        area
+      );
+
+  }
+
+  if(menu != "ALL"){
+
+    filtered =
+      filtered.filter(
+        a =>
+        a.menu ==
+        menu
+      );
+
+  }
+
+  let qty = 0;
+  let scanned = 0;
+  let pending = 0;
+
+  filtered.forEach(a=>{
+
+    qty += a.qty;
+    scanned += a.scanned;
+    pending += a.pending;
+
+  });
+
+  document
+    .getElementById(
+      "totalQty"
+    ).innerHTML = qty;
+
+  document
+    .getElementById(
+      "scannedQty"
+    ).innerHTML = scanned;
+
+  document
+    .getElementById(
+      "pendingQty"
+    ).innerHTML = pending;
+
+  filtered.sort((a,b)=>{
+
+    if(a.area < b.area)
+      return -1;
+
+    if(a.area > b.area)
+      return 1;
+
+    if(
+      a.kodeWarna <
+      b.kodeWarna
+    )
+      return -1;
+
+    if(
+      a.kodeWarna >
+      b.kodeWarna
+    )
+      return 1;
+
+    return 0;
+
+  });
+
+  let html = "";
+
+  filtered.forEach(a=>{
+
+    html += `
+
+    <tr>
+
+      <td>${a.area}</td>
+
+      <td>${a.branch}</td>
+
+      <td>${a.kodeWarna}</td>
+
+      <td>${a.qty}</td>
+
+      <td>${a.scanned}</td>
+
+      <td class="pending">
+        ${a.pending}
+      </td>
+
+    </tr>
+
+    `;
+
+  });
+
+  document
+    .getElementById(
+      "areaTable"
+    ).innerHTML = html;
+
+}
 
 loadDashboard();
 
 setInterval(
-loadDashboard,
-5000
+  loadDashboard,
+  5000
 );
-
-};
 
 </script>
 
