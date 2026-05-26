@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>DSI Scanner</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial;
+background:#020617;
+color:white;
+min-height:100vh;
+overflow:auto;
+}
+
+.header{
+background:#0f172a;
+padding:18px;
+text-align:center;
+font-size:26px;
+font-weight:bold;
+}
+
+.nav{
+display:flex;
+}
+
+.nav button{
+flex:1;
+padding:14px;
+border:none;
+background:#1e293b;
+color:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.nav button.active{
+background:#2563eb;
+}
+
+.page{
+display:none;
+padding:14px;
+}
+
+.page.active{
+display:block;
+}
+
+/* =========================
+INPUT SCAN
+========================= */
+
+.scan-box{
+max-width:700px;
+margin:auto;
+}
+
+.scan-input{
+width:100%;
+padding:22px;
+font-size:28px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:white;
+outline:none;
+text-align:center;
+font-weight:bold;
+}
+
+.scan-input:focus{
+border:3px solid #2563eb;
+}
+
+#result,
+#resultEstafet{
+margin-top:15px;
+padding:18px;
+border-radius:15px;
+background:#1e293b;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+/* =========================
+DASHBOARD
+========================= */
+
+.filter-container{
+margin-bottom:12px;
+}
+
+.filter-container select{
+padding:12px;
+border:none;
+border-radius:12px;
+background:#1e293b;
+color:white;
+font-weight:bold;
+}
+
+.dashboard-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:10px;
+
+}
+
+.card{
+
+background:#1e293b;
+
+padding:14px;
+
+border-radius:18px;
+
+min-height:85px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+}
+
+.card-title{
+font-size:12px;
+color:#94a3b8;
+margin-bottom:8px;
+}
+
+.card-value{
+font-size:34px;
+font-weight:bold;
+}
+
+.blue{
+color:#60a5fa;
+}
+
+.green{
+color:#4ade80;
+}
+
+.yellow{
+color:#facc15;
+}
+
+.red{
+color:#f87171;
+}
+
+.table-card{
+margin-top:12px;
+background:#1e293b;
+padding:16px;
+border-radius:18px;
+overflow:auto;
+}
+
+.table-title{
+font-size:20px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.area-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.area-table th{
+background:#2563eb;
+padding:10px;
+font-size:13px;
+}
+
+.area-table td{
+background:#0f172a;
+padding:10px;
+text-align:center;
+border-bottom:1px solid #334155;
+font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+DSI SCANNER
+</div>
+
+<div class="nav">
+
+<button class="active"
+onclick="showPage('scan',this)">
+SCAN
+</button>
+
+<button onclick="showPage('estafet',this)">
+ESTAFET
+</button>
+
+<button onclick="showPage('dashboard',this)">
+DASHBOARD
+</button>
+
+</div>
+
+<!-- =========================
+SCAN
+========================= -->
+
+<div id="scan"
+class="page active">
+
+<div class="scan-box">
+
+<input
+type="text"
+id="scanInput"
+class="scan-input"
+placeholder="SCAN BOX..."
+autocomplete="off">
+
+<div id="result">
+READY SCAN
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+ESTAFET
+========================= -->
+
+<div id="estafet"
+class="page">
+
+<div class="scan-box">
+
+<input
+type="text"
+id="estafetInput"
+class="scan-input"
+placeholder="SCAN ESTAFET..."
+autocomplete="off">
+
+<div id="resultEstafet">
+READY ESTAFET
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+DASHBOARD
+========================= -->
+
+<div id="dashboard"
+class="page">
+
+<div class="filter-container">
+
+<select id="menuFilter"
+onchange="loadDashboard()">
+
+<option value="ALL">
+ALL
+</option>
+
+<option value="Lunch">
+Lunch
+</option>
+
+<option value="Dinner">
+Dinner
+</option>
+
+</select>
+
+</div>
+
+<div class="dashboard-grid">
+
+<div class="card">
+<div class="card-title">QTY BOX</div>
+<div class="card-value blue"
+id="totalQty">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">BOX HG</div>
+<div class="card-value green"
+id="hgQty">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">BOX BK</div>
+<div class="card-value yellow"
+id="bkQty">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">QTY SCANNED</div>
+<div class="card-value green"
+id="scannedQty">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">HG SCANNED</div>
+<div class="card-value green"
+id="hgScanned">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">BK SCANNED</div>
+<div class="card-value yellow"
+id="bkScanned">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">QTY PENDING</div>
+<div class="card-value red"
+id="pendingQty">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">HG PENDING</div>
+<div class="card-value red"
+id="hgPending">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">BK PENDING</div>
+<div class="card-value red"
+id="bkPending">0</div>
+</div>
+
+</div>
+
+<!-- AREA -->
+
+<div class="table-card">
+
+<div class="table-title">
+SUMMARY AREA
+</div>
+
+<table class="area-table">
+
+<thead>
+
+<tr>
+
+<th>AREA</th>
+<th>BRANCH</th>
+<th>QTY</th>
+<th>SCANNED</th>
+<th>PENDING</th>
+<th>%</th>
+
+</tr>
+
+</thead>
+
+<tbody id="areaTable">
+</tbody>
+
+</table>
+
+</div>
+
+<!-- WARNA -->
+
+<div class="table-card">
+
+<div class="table-title">
+SUMMARY KODE WARNA
+</div>
+
+<table class="area-table">
+
+<thead>
+
+<tr>
+
+<th>AREA</th>
+<th>KODE WARNA</th>
+<th>QTY</th>
+<th>SCANNED</th>
+<th>PENDING</th>
+<th>%</th>
+
+</tr>
+
+</thead>
+
+<tbody id="warnaTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+const WEB_APP_URL =
+"PASTE_WEB_APP_URL_DISINI";
+
+// =====================================
+// NAVIGATION
+// =====================================
+
+function showPage(page,btn){
+
+document
+.querySelectorAll(".page")
+.forEach(p => {
+p.classList.remove("active");
+});
+
+document
+.getElementById(page)
+.classList.add("active");
+
+document
+.querySelectorAll(".nav button")
+.forEach(b => {
+b.classList.remove("active");
+});
+
+btn.classList.add("active");
+
+if(page == "dashboard"){
+
+loadDashboard();
+
+}
+
+if(page == "scan"){
+
+setTimeout(() => {
+
+document
+.getElementById("scanInput")
+.focus();
+
+},100);
+
+}
+
+if(page == "estafet"){
+
+setTimeout(() => {
+
+document
+.getElementById("estafetInput")
+.focus();
+
+},100);
+
+}
+
+}
+
+// =====================================
+// STATUS
+// =====================================
+
+function updateStatus(id,text,type){
+
+const result =
+document.getElementById(id);
+
+result.innerHTML = text;
+
+result.style.color = "white";
+result.style.background = "#1e293b";
+
+if(type == "success"){
+
+result.style.color = "#4ade80";
+result.style.background = "#052e16";
+
+}
+
+if(type == "error"){
+
+result.style.color = "#f87171";
+result.style.background = "#450a0a";
+
+}
+
+}
+
+// =====================================
+// PROCESS SCAN
+// =====================================
+
+async function processScan(
+barcode,
+type,
+resultId,
+inputId
+){
+
+if(!barcode){
+return;
+}
+
+updateStatus(
+resultId,
+"PROCESSING...",
+""
+);
+
+try{
+
+const res =
+await fetch(WEB_APP_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain"
+},
+
+body:JSON.stringify({
+
+boxId:barcode,
+
+type:type
+
+})
+
+});
+
+const data =
+await res.text();
+
+updateStatus(
+resultId,
+data,
+"success"
+);
+
+}
+catch(err){
+
+updateStatus(
+resultId,
+"ERROR",
+"error"
+);
+
+}
+
+// CLEAR INPUT
+
+const input =
+document.getElementById(inputId);
+
+input.value = "";
+
+input.focus();
+
+}
+
+// =====================================
+// ENTER SCAN
+// =====================================
+
+document
+.getElementById("scanInput")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key === "Enter"){
+
+processScan(
+
+this.value.trim(),
+
+"scan",
+
+"result",
+
+"scanInput"
+
+);
+
+}
+
+}
+);
+
+document
+.getElementById("estafetInput")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key === "Enter"){
+
+processScan(
+
+this.value.trim(),
+
+"estafet",
+
+"resultEstafet",
+
+"estafetInput"
+
+);
+
+}
+
+}
+);
+
+// =====================================
+// LOAD DASHBOARD
+// =====================================
+
+async function loadDashboard(){
+
+try{
+
+const menu =
+document.getElementById(
+"menuFilter"
+).value;
+
+const res =
+await fetch(
+
+WEB_APP_URL +
+
+"?dashboard=1&menu=" +
+
+menu
+
+);
+
+const data =
+await res.json();
+
+document.getElementById("totalQty")
+.innerHTML = data.totalQty;
+
+document.getElementById("hgQty")
+.innerHTML = data.hgQty;
+
+document.getElementById("bkQty")
+.innerHTML = data.bkQty;
+
+document.getElementById("scannedQty")
+.innerHTML = data.scannedQty;
+
+document.getElementById("hgScanned")
+.innerHTML = data.hgScanned;
+
+document.getElementById("bkScanned")
+.innerHTML = data.bkScanned;
+
+document.getElementById("pendingQty")
+.innerHTML = data.pendingQty;
+
+document.getElementById("hgPending")
+.innerHTML = data.hgPending;
+
+document.getElementById("bkPending")
+.innerHTML = data.bkPending;
+
+// AREA
+
+let html = "";
+
+data.areas.forEach(a => {
+
+html += `
+
+<tr>
+
+<td>${a.area}</td>
+<td>${a.branch}</td>
+<td>${a.qty}</td>
+<td>${a.scanned}</td>
+<td>${a.pending}</td>
+<td>${a.percent}%</td>
+
+</tr>
+
+`;
+
+});
+
+document
+.getElementById("areaTable")
+.innerHTML = html;
+
+// WARNA
+
+let warnaHtml = "";
+
+data.warnaSummary.forEach(w => {
+
+warnaHtml += `
+
+<tr>
+
+<td>${w.area}</td>
+<td>${w.kodeWarna}</td>
+<td>${w.qty}</td>
+<td>${w.scanned}</td>
+<td>${w.pending}</td>
+<td>${w.percent}%</td>
+
+</tr>
+
+`;
+
+});
+
+document
+.getElementById("warnaTable")
+.innerHTML =
+warnaHtml;
+
+}
+
+catch(err){
+
+console.log(err);
+
+}
+
+}
+
+// =====================================
+// INIT
+// =====================================
+
+window.onload = function(){
+
+document
+.getElementById("scanInput")
+.focus();
+
+loadDashboard();
+
+setInterval(
+loadDashboard,
+5000
+);
+
+};
+
+</script>
+
+</body>
+</html>
